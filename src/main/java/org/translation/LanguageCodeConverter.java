@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
-
+    // Task: pick appropriate instance variables to store the data necessary for this class
+    private Map<String, List<String>> languageCodetoName;
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
      * in the resources folder.
@@ -30,14 +30,20 @@ public class LanguageCodeConverter {
      */
     public LanguageCodeConverter(String filename) {
 
+        languageCodetoName = new HashMap<>();
+
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
+            for (String line : lines) {
+                String[] parts = line.split("\t");  // Splitting by tab between names and code
+                String[] names = parts[0].split(", ");  // Splitting multiple names by ", "
 
-        // TODO Checkstyle: '}' on next line should be alone on a line.
+                // Adding the list of names to the map with the code as the key
+                languageCodetoName.put(parts[1], List.of(names));
+            }
+
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
@@ -50,8 +56,14 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        // Task: update this code to use your instance variable to return the correct value
+        List<String> language_names = languageCodetoName.get(code);
+        if (language_names == null) {
+            return "";
+        }
+        else{
+            return String.join(", ", language_names);
+        }
     }
 
     /**
@@ -60,8 +72,14 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        // Task: update this code to use your instance variable to return the correct value
+        List<String> language_codes = languageCodetoName.get(language);
+        if (language_codes == null) {
+            return "";
+        }
+        else{
+            return String.join(", ", language_codes);
+        }
     }
 
     /**
@@ -69,7 +87,7 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        // Task: update this code to use your instance variable to return the correct value
+        return languageCodetoName.size();
     }
 }
