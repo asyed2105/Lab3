@@ -43,7 +43,7 @@ public class JSONTranslator implements Translator {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i); // gets us the ith element from jsonArray
-                String code = jsonObject.getString("alpha2"); // country code for map key
+                String code = jsonObject.getString("alpha3"); // country code for map key
 
                 Map<String, String> translation = new HashMap<>(); // map for translation info coming from jsonObject
                 for (String countryKey: jsonObject.keySet()) {
