@@ -43,8 +43,8 @@ public class CountryCodeConverter {
                     // we don't want first line
                 }
                 String[] lineParts = line.split("\t");
-                String country = lineParts[0];
-                String code = lineParts[1];
+                String country = lineParts[0].trim();
+                String code = lineParts[2].trim();
 
                 codeToCountry.put(code,country);
                 countryToCode.put(country,code);
