@@ -64,13 +64,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // Task: update this code to use an instance variable to return the correct value
-        String countryCode = countryToCode.get(code);
-        if(countryCode == null) {
-            return "";
-        }
-        else {
-            return countryCode;
-        }
+        return codeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -80,7 +74,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // Task: update this code to use an instance variable to return the correct value
-        return countryToCode.get(country);
+        return countryToCode.get(country.toUpperCase());
     }
 
     /**
