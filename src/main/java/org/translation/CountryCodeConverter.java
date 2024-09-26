@@ -64,7 +64,13 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // Task: update this code to use an instance variable to return the correct value
-        return codeToCountry.get(code);
+        String countryCode = countryToCode.get(code);
+        if(countryCode == null) {
+            return "";
+        }
+        else {
+            return countryCode;
+        }
     }
 
     /**
