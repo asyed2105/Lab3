@@ -42,9 +42,10 @@ public class CountryCodeConverter {
                     continue;
                     // we don't want first line
                 }
-                String[] line_parts = line.split("\t");
-                String country = line_parts[0];
-                String code = line_parts[1];
+                String[] lineParts = line.split("\t");
+                String country = lineParts[0];
+                String code = lineParts[1];
+
                 codeToCountry.put(code,country);
                 countryToCode.put(country,code);
             }
