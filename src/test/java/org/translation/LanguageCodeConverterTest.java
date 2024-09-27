@@ -17,4 +17,15 @@ public class LanguageCodeConverterTest {
         LanguageCodeConverter converter = new LanguageCodeConverter();
         assertEquals(184, converter.getNumLanguages());
     }
+
+    @Test
+    public void fromLanguage() {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        assertEquals("sq", converter.fromLanguage("Albanian"));
+    }
+    @Test
+    public void fromLanguages() {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        assertEquals("de", converter.fromLanguage("German"));
+    }
 }
