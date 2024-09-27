@@ -74,7 +74,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // Task: update this code to use an instance variable to return the correct value
-        return countryToCode.get(country.toUpperCase());
+        return countryToCode.get(country).toLowerCase();
     }
 
     /**
