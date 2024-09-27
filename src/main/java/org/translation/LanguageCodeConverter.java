@@ -15,6 +15,7 @@ public class LanguageCodeConverter {
 
     // Task: pick appropriate instance variables to store the data necessary for this class
     private Map<String, List<String>> languageCodetoName;
+    private Map<String, String> nameToCode;
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
      * in the resources folder.
@@ -31,24 +32,35 @@ public class LanguageCodeConverter {
     public LanguageCodeConverter(String filename) {
 
         languageCodetoName = new HashMap<>();
+        nameToCode = new HashMap<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
             for (String line : lines) {
-                String[] parts = line.split("\t");  // Splitting by tab between names and code
-                String[] names = parts[0].split(", ");  // Splitting multiple names by ", "
+                // Skip any empty lines or lines that don't contain a tab character
+                if (line.trim().isEmpty() || !line.contains("\t")) {
+                    continue; // Skip this line and go to the next
+                }
+
+                String[] parts = line.split("\t");
+                String[] names = parts[0].split(", ");  // Split multiple names by ", "
+                String code = parts[1].trim();  // Clean up the code
 
                 // Adding the list of names to the map with the code as the key
-                languageCodetoName.put(parts[1], List.of(names));
+                languageCodetoName.put(code, List.of(names));
+                // Map each name to its code
+                for (String name : names) {
+                    nameToCode.put(name.trim().toLowerCase(), code); // Normalize the name to lower case
+                }
             }
 
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
     }
+
 
     /**
      * Returns the name of the language for the given language code.
@@ -73,13 +85,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // Task: update this code to use your instance variable to return the correct value
-        List<String> language_codes = languageCodetoName.get(language);
-        if (language_codes == null) {
-            return "";
-        }
-        else{
-            return String.join(", ", language_codes);
-        }
+        return nameToCode.get(language.toLowerCase());
     }
 
     /**
