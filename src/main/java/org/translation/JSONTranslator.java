@@ -92,7 +92,14 @@ public class JSONTranslator implements Translator {
             return translation.get(language);
         }
         else{
-            return null;
+            if( translation == null){
+                return("No information");
+            }
+            else{
+                if(!translation.containsKey(language));
+                return("No translation");
+            }
+
         }
     }
 }
